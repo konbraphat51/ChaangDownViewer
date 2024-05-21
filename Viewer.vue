@@ -22,6 +22,9 @@ export default {
 		markdown: {
 			immediate: true,
 			handler(newVal) {
+				//skip if not rendered yet
+				if (!this.$refs.markdown) return
+
 				this.$refs.markdown.innerHTML = marked.parse(newVal)
 			},
 		},
