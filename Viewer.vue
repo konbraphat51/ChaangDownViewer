@@ -4,11 +4,27 @@
 
 -->
 <template>
-	<div class="MarkDownViwer"></div>
+	<div class="MarkDownViwer">
+		<div ref="markdown"></div>
+	</div>
 </template>
 
 <script>
 export default {
 	name: "Viewer",
+	props: {
+		markdown: {
+			type: String,
+			required: true,
+		},
+	},
+	watch: {
+		markdown: {
+			immediate: true,
+			handler(newVal) {
+				this.$refs.markdown.innerHTML = marked.parse(newVal)
+			},
+		},
+	},
 }
 </script>
