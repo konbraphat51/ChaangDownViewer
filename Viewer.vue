@@ -18,14 +18,22 @@ export default {
 			required: true,
 		},
 	},
+	mounted() {
+		this.RenderMarkdown(this.markdown)
+	},
+	methods: {
+		RenderMarkdown(newVal) {
+			//skip if not rendered yet
+			if (!this.$refs.markdown) return
+
+			this.$refs.markdown.innerHTML = marked.parse(newVal)
+		},
+	},
 	watch: {
 		markdown: {
 			immediate: true,
 			handler(newVal) {
-				//skip if not rendered yet
-				if (!this.$refs.markdown) return
-
-				this.$refs.markdown.innerHTML = marked.parse(newVal)
+				this.RenderMarkdown(newVal)
 			},
 		},
 	},
